@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>จองสำเร็จ</title>
+<style>
+  body {
+    font-family: "Prompt", sans-serif;
+    background: linear-gradient(to bottom right, #d4f1f4, #ffffff);
+    text-align: center;
+    padding-top: 100px;
+  }
+  .box {
+    background: white;
+    display: inline-block;
+    padding: 30px 60px;
+    border-radius: 15px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+  }
+  h2 {
+    color: #0077b6;
+  }
+  a {
+    display: inline-block;
+    margin-top: 20px;
+    background: #00b4d8;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+  }
+  a:hover {
+    background: #0096c7;
+  }
+</style>
+</head>
+<body>
+  <div class="box">
+    <h2>{{.message}}</h2>
+    <p>ชื่อผู้จอง: {{.name}}</p>
+    <p>เช่าทั้งหมด {{.months}} เดือน</p>
+    <p>ตั้งแต่ {{.start}} ถึง {{.end}}</p>
+    <a href="/">กลับสู่หน้าห้องพัก</a>
+  </div>
+</body>
+</html>

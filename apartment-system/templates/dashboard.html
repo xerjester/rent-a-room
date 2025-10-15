@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+.card img { height: 150px; object-fit: cover; border-radius: 8px; }
+h2 { margin-top: 30px; margin-bottom: 20px; color: #0d6efd; }
+.navbar { border-radius: 0 0 12px 12px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="#">Admin Dashboard</a>
+    <div class="d-flex">
+      <span class="navbar-text me-3">{{.Admin}}</span>
+      <a class="btn btn-danger btn-sm" href="/login">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container my-4">
+<h2>ห้องทั้งหมด</h2>
+<a href="/add_room" class="btn btn-primary mb-3">+ เพิ่มห้องใหม่</a>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+{{range $i, $r := .Rooms}}
+  <div class="col">
+    <div class="card h-100">
+      <img src="/uploads/{{$r.Image}}" class="card-img-top" alt="ห้อง {{$r.RoomNumber}}">
+      <div class="card-body">
+        <h5 class="card-title">ห้อง {{$r.RoomNumber}}</h5>
+        <p class="card-text">ขนาด: {{$r.Size}}<br>ราคา: {{printf "%.2f" $r.Price}} บาท/เดือน</p>
+        <div class="d-flex gap-2">
+          <a href="/edit_room/{{$r.ID}}" class="btn btn-warning btn-sm flex-fill">แก้ไข</a>
+          <a href="/delete_room/{{$r.ID}}" class="btn btn-danger btn-sm flex-fill" onclick="return confirm('ยืนยันการลบ?')">ลบ</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{{end}}
+</div>
+
+<h2>รายการการจอง</h2>
+<div class="table-responsive">
+<table class="table table-striped table-hover align-middle">
+<thead class="table-primary">
+<tr>
+<th>ลำดับ</th>
+<th>ห้อง</th>
+<th>ผู้จอง</th>
+<th>โทร</th>
+<th>เริ่ม</th>
+<th>สิ้นสุด</th>
+<th>จัดการ</th>
+</tr>
+</thead>
+<tbody>
+{{range $i, $b := .Bookings}}
+<tr>
+  <td>{{$i | add1}}</td>
+  <td>{{$b.RoomNumber}}</td>
+  <td>{{$b.CustomerName}}</td>
+  <td>{{$b.Phone}}</td>
+  <td>{{$b.StartDate}}</td>
+  <td>{{$b.EndDate}}</td>
+  <td>
+    <a href="/delete_booking/{{$b.ID}}" class="btn btn-danger btn-sm" onclick="return confirm('ยืนยันการลบการจอง?')">ลบ</a>
+  </td>
+</tr>
+{{end}}
+</tbody>
+</table>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
